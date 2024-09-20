@@ -5,7 +5,7 @@
 void merge(int arr[], int l, int m, int r);
 void swap(int *xp, int *yp); 
 
-void bubbleSort(int arr[], int n) {
+void bubbleSortInt(int arr[], int n) {
 	bool swapped = true;
     int i = 0,j;
     while(i < n-1 && swapped){
@@ -20,7 +20,7 @@ void bubbleSort(int arr[], int n) {
 	}
 }
 
-void insertionSort(int arr[], int n) {
+void insertionSortInt(int arr[], int n) {
 	int i,j,key;
 	for(i = 1;i < n;i++){
 		key = arr[i];
@@ -33,7 +33,21 @@ void insertionSort(int arr[], int n) {
 	}
 }
 
-void selectionSort(int arr[], int n) {
+void insertionSortFloat(float arr[], int n) {
+	int i,j;
+	float key;
+	for(i = 1;i < n; i++){
+		key = arr[i];
+		j = i - 1;
+		while(j >= 0 && arr[j] > key){
+			arr[j+1] = arr[j];
+			j--;
+		}
+		arr[j+1] = key;
+	}
+}
+
+void selectionSortInt(int arr[], int n) {
 	int i,j,min_index;
 	for(i = 0;i < n-1; i++){
 		min_index = i;
@@ -48,11 +62,11 @@ void selectionSort(int arr[], int n) {
 	}
 }
 
-void quickSort(int arr[], int low, int high) {
+void quickSortInt(int arr[], int low, int high) {
 	if(low < high){
 		int pivot_index = partitionQuick(arr, low, high);
-		quickSort(arr, low, pivot_index-1);
-		quickSort(arr,pivot_index+1, high);
+		quickSortInt(arr, low, pivot_index-1);
+		quickSortInt(arr,pivot_index+1, high);
 	}
 }
 
@@ -68,11 +82,11 @@ int partitionQuick(int arr[], int low, int high){
 	return i;
 }
 
-void mergeSort(int arr[], int l, int r) {
+void mergeSortInt(int arr[], int l, int r) {
 	if(l < r){
 		int m = (l + r) / 2;
-		mergeSort(arr, l, m);
-		mergeSort(arr, m+1, r);
+		mergeSortInt(arr, l, m);
+		mergeSortInt(arr, m+1, r);
 		merge(arr, l, m, r);
 	}
 }
@@ -120,9 +134,44 @@ void merge(int arr[], int l, int m, int r){
 	free(right);
 }
 
-// Function to sort the array, using selection sort as the default
-void sort(int arr[], int n) {
-    mergeSort(arr, 0,n-1);
+void bucketSortFloat(float arr[], int n){
+	float **buckets = (float**) malloc(n * sizeof(float*));
+	int* bucketSizes = (int*) malloc(n * sizeof(int));
+	int i, j, k;
+
+	for(i = 0; i < n; i++){
+		buckets[i] = (float*) malloc(n * sizeof(float));
+		bucketSizes[i] = 0;
+	}
+
+	for(i = 0; i < n; i++){
+		j = (int)(n * arr[i]);
+		buckets[j][bucketSizes[j]++] = arr[i];
+	}
+
+	for(i = 0; i < n; i++){
+		insertionSortFloat(buckets[i], bucketSizes[i]);
+	}
+
+	k = 0;
+	for(i = 0; i < n; i++){
+		for(j = 0; j < bucketSizes[i]; j++){
+			arr[k++] = buckets[i][j];
+		}
+		free(buckets[i]);
+	}
+
+	free(buckets);
+	free(bucketSizes);
+}
+
+// Function to sort the array, using merge sort as the default
+void sortInt(int arr[], int n) {
+    mergeSortInt(arr, 0,n-1);
+}
+// Function to sort the array, using bucket sort as the default
+void sortFloat(float arr[], int n) {
+    bucketSortFloat(arr,n);
 }
 
 void swap(int *xp, int *yp) {
