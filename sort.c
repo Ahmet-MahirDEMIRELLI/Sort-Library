@@ -165,6 +165,19 @@ void bucketSortFloat(float arr[], int n){
 	free(bucketSizes);
 }
 
+void shellSortInt(int arr[], int n){
+	int gap, i, j, tmp;
+	for (gap = n/2; gap > 0; gap /= 2){
+        for (i = gap; i < n; i++){
+			tmp = arr[i];
+			for(j = i; j >= gap && arr[j-gap] > tmp; j -=gap){
+				arr[j] = arr[j - gap];
+			}
+			arr[j] = tmp;
+        }    
+    }
+}
+
 // Function to sort the array, using merge sort as the default
 void sortInt(int arr[], int n) {
     mergeSortInt(arr, 0,n-1);

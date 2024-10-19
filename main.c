@@ -1,3 +1,5 @@
+// gcc main.c sort.c -o program
+// run program.exe
 #include <stdio.h>
 #include <stdlib.h>
 #include "sort.h"
@@ -13,9 +15,9 @@ int main(int argc, char *argv[]) {
 	int i;
 
     //sortInt(arr1, n1);
-    sortFloat(arr2,n2);
-
     //printIntArr(arr1,n1);
+
+    sortFloat(arr2,n2);
     printFloatArr(arr2,n2);
 
     system("pause");
