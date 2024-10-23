@@ -9,12 +9,12 @@ void quickSortInt(int arr[], int low, int high);
 void mergeSortInt(int arr[], int l, int r);
 void bucketSortFloat(float arr[], int n);
 void shellSortInt(int arr[], int n);
+void countingSortInt(int arr[], int n);
 
 void sortInt(int arr[], int n);
 void sortFloat(float arr[], int n);
 
 // uncomplete
-void countingSort(int arr[], int n);
 void heapSort(int arr[], int n);
 void redixSort(int arr[], int n);
 void timSort(int arr[], int n);

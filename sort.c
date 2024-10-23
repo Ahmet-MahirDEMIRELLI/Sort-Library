@@ -178,6 +178,35 @@ void shellSortInt(int arr[], int n){
     }
 }
 
+void countingSortInt(int arr[], int n){
+	int i, min = 0;
+    for (i = 0; i < n; i++){
+		if(arr[i] > min){
+			min = arr[i];
+		}
+	}
+
+    int* countArray = (int*) calloc(min + 1, sizeof(int));
+    int* outputArray = (int*) malloc(n * sizeof(int));
+
+    for (i = 0; i < n; i++){
+		countArray[arr[i]]++;
+	}   
+    for (i = 1; i <= min; i++){
+		countArray[i] += countArray[i - 1];
+	} 
+    for (i = n - 1; i >= 0; i--) {
+        outputArray[countArray[arr[i]] - 1] = arr[i];
+        countArray[arr[i]]--;
+    }
+    for (i = 0; i < n; i++){
+		arr[i] = outputArray[i];
+	}
+
+    free(countArray);
+    free(outputArray);
+}
+
 // Function to sort the array, using merge sort as the default
 void sortInt(int arr[], int n) {
     mergeSortInt(arr, 0,n-1);

@@ -14,11 +14,11 @@ int main(int argc, char *argv[]) {
     int n2 = 10;
 	int i;
 
-    //sortInt(arr1, n1);
-    //printIntArr(arr1,n1);
+    sortInt(arr1, n1);
+    printIntArr(arr1,n1);
 
-    sortFloat(arr2,n2);
-    printFloatArr(arr2,n2);
+    //sortFloat(arr2,n2);
+    //printFloatArr(arr2,n2);
 
     system("pause");
     return 0;
