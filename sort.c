@@ -2,8 +2,9 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-void merge(int arr[], int l, int m, int r);
-void swap(int *xp, int *yp); 
+void merge(int [], int , int , int );
+void swap(int *, int *); 
+void heapify(int [], int , int );
 
 void bubbleSortInt(int arr[], int n) {
 	bool swapped = true;
@@ -207,9 +208,41 @@ void countingSortInt(int arr[], int n){
     free(outputArray);
 }
 
+void heapSortInt(int arr[], int n){
+	int i, temp;
+    for(i = n / 2 - 1; i >= 0; i--){
+        heapify(arr, n, i);
+    }
+    for(i = n - 1; i > 0; i--){
+        temp = arr[0]; 
+        arr[0] = arr[i];
+        arr[i] = temp;
+        heapify(arr, i, 0);
+    }
+}
+
+void heapify(int arr[], int n, int i){
+	int temp;
+    int largest = i; 
+    int l = 2 * i + 1; 
+    int r = 2 * i + 2;
+    if(l < n && arr[l] > arr[largest]){
+        largest = l;
+    }
+    if(r < n && arr[r] > arr[largest]){
+        largest = r;
+    }
+    if(largest != i){
+        temp = arr[i];
+        arr[i] = arr[largest];
+        arr[largest] = temp;
+        heapify(arr, n, largest);
+    }
+}
+
 // Function to sort the array, using merge sort as the default
 void sortInt(int arr[], int n) {
-    mergeSortInt(arr, 0,n-1);
+    mergeSortInt(arr, 0, n-1);
 }
 // Function to sort the array, using bucket sort as the default
 void sortFloat(float arr[], int n) {
